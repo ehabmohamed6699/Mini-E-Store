@@ -1,0 +1,19 @@
+let [prodcts, setprodcts] = useState([]);
+    const shouldLog = useRef(true);
+    useEffect(() => {
+        
+        axios.get('https://api.escuelajs.co/api/v1/products')
+            .then((prodData) => {
+                if(shouldLog.current){
+                    console.log(prodData);
+                    for(let item of prodData.data){
+                        setprodcts(prodcts.push(item))
+                    }
+                    console.log(prodcts);
+                    shouldLog.current = false;
+                }
+            })
+            .catch((err) => {
+                console.log(err);
+            })
+    }, []);
